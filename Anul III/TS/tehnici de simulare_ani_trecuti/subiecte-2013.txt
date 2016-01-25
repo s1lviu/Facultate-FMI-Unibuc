@@ -1,0 +1,30 @@
+Subiecte pentru partea de teorie: Metoda inversa, Metoda compunerii cazul discret, Metoda compunerii cazul continuu, Metoda respringerii, prima teorema de respingere, Metoda respingerii, a doua teorema de respingere, Metoda respingerii, a treia teorema de respingere.
+
+342 : 
+teorie : metoda respingerii : Teorema 1
+probleme : exercitiile constau intr-o functie f(x) functie de densitate de repartitie , trebuia sa recunoastem ce fel de repatitie este, sa precizam 2 algoritmi de rezolvare si sa evidentiem parametrii pentru cazul nostru...
+
+341 :
+Teorie: metoda compunerii cazul discret...iar la exercitii...3 variabile aleatoare(pt 2 aveam densitatea de repartitie si una functia) si trebuia sa determinam tipul repartitiei si 2 algoritmi de generare pt fiecare...
+
+fie o variabila aleatore X si functia de densitate ....
+si trebuiau scrisi doi algaritmi care gasesc pe x
+si trbuia zis si ce tip de repartitie este
+si parametrii
+iar la una din probleme in loc de functia de densitate se dadea functia de probabilitate
+la mine la una din ele era rep geometrica
+si una era cu repartitia minimului
+
+331 : 1. Un algoritm de generare pentru:
+f(x) = http://www.wolframalpha.com/input/...
+2. 2 alg de generare pentru:
+f(x) = [Gama(1/2)]^2 / sqrt[x(x-1)] // sau x+1 ?
+3. 2 alg de generare pentru:
+f(x) = 1/{ Gama(0.1) * e^[x / Gama(0.1)]}
+la teorie a dat metoda respingerii si teorema 1 de respingere.
+
+332/333/334 :
+teorie : th 3 de respingere
+1. f(x)=e^(-X^2 * pi).
+2. f(x)=3*(1-X)^2
+3. f(x)=2^(3x+1) * (0,1)^(x+1)

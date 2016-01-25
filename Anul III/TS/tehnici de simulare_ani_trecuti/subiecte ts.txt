@@ -1,0 +1,5 @@
+1) f(x) = 4(1 - x)^3, x este intre 0 si 1 inchis, 0 altfel, sa se dea un algoritm de generare pt X cu densitatea de repartitie f(x)
+
+2) f(x) = (1/radical din 2*pi ) * e ^ (-1/2* x^2 + 1/2 * x - 1/8), sa se dea 2 algoritmi de generare pt X cu densitatea de repartitie f(x), x din R
+
+3) P(X = x) = 3^x * (0.25)^(x + 1), x = 0,1,2,.... sa se dea un algoritm de generare pt X cu functia de probabilitate P
