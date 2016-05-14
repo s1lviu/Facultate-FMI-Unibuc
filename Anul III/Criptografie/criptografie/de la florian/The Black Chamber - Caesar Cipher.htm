@@ -1,0 +1,172 @@
+
+<!-- saved from url=(0055)http://www.simonsingh.net/The_Black_Chamber/caesar.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>The Black Chamber - Caesar Cipher</title>
+<link rel="stylesheet" href="./The Black Chamber - Caesar Cipher_files/main.css" type="text/css">	
+<script language="javascript" src="./The Black Chamber - Caesar Cipher_files/caesar.js"></script>
+<script language="javascript">
+function keyDown() {
+	var keycode = event.keyCode
+	var realkey = String.fromCharCode(event.keyCode)
+	if(keycode==13)
+	{
+	changeNum()
+	}
+	
+}
+
+document.onkeydown = keyDown
+</script>
+
+</head>
+
+<body>
+
+<div class="topbanner">
+<h1>The <span id="blackchamber">Black</span> Chamber</h1>
+</div>
+<div class="leftmenu">
+<ul>
+<li><a href="http://www.simonsingh.net/The_Black_Chamber/index.html">Home</a></li>
+<li><a href="http://www.simonsingh.net/The_Black_Chamber/chamberguide.html">Chamber Guide</a>
+ <ul>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/transposition.html">Transposition</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/railfencecipher.html">Rail Fence Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/latinsquare.html">Latin Square</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/substitution.html">Substitution</a><ul>
+   <li><a href="./The Black Chamber - Caesar Cipher_files/The Black Chamber - Caesar Cipher.htm" id="active">Caesar Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/kamasutra.html">Kama-sutra Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/pigpen.html">Pigpen Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/monoalphabetic.html">Mono-alphabetic Cipher</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/codes_ciphers_keys.html">Codes, Ciphers and Keys</a></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/crackingsubstitution.html">Cracking the Substitution Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/letterfrequencies.html">Letter Frequencies</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/hintsandtips.html">Hints and Tips</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/substitutioncrackingtool.html">Substitution Cracking Tool</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/maryqueenofscots.html">Mary Queen of Scots</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/moreadvancedciphers.html">More Advanced Ciphers</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/digraphcipher.html">Digraph Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/homophonic_cipher.html">Homophonic Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/playfair_cipher.html">Playfair Cipher</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_cipher.html">Vigenère Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/swapping_cipher_alphabets.html">Swapping Cipher Alphabets</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/v_square.html">Vigenère Square</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_square_tool.html">Vigenère Square Tool</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_strength.html">Why is Vigenère so strong?</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_cracking.html">Cracking the Vigenère Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/crackingprinciple.html">Cracking Principle</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_cracking_tool.html">Vigenère Cracking Tool</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/1900_2000.html">1900 - 2000</a></li>
+ </ul>
+</li>
+<li><a href="http://simonsingh.net/contact/" target="_blank">Contact Simon Singh</a></li>
+<li><a href="http://simonsingh.net/cryptography/">Crypto Corner</a></li>
+<li><a href="http://simonsingh.net/cryptography/crypto-cd-rom/">CD-ROM</a></li>
+<li><a href="http://simonsingh.net/">Return to simonsingh.net</a></li>
+</ul>
+</div>
+<div class="mainbody">
+<!--<IMG SRC="z_cipherimages/caesar_03.gif" style="float:right;">-->
+<p>
+According to Suetonius, Caesar simply replaced each letter in a message with the letter 
+that is three places further down the alphabet. Cryptographers often think in 
+terms of the plaintext alphabet as being the alphabet used to write the original 
+message, and the ciphertext alphabet as being the letters that are substituted 
+in place of the plain letters. When the plaintext alphabet is placed above the 
+ciphertext alphabet, as shown below, it is clear to see that the ciphertext alphabet 
+has been shifted by three places. Hence this form of substitution is often called 
+the Caesar Shift Cipher. A cipher is the name given to any form of cryptographic 
+substitution, in which each letter is replaced by another letter or symbol.</p>
+
+<p>Type your message into the box labelled 'Plaintext', then click the button labelled 
+'Encipher Plaintext' to encrypt your message. You can produce new versions of 
+the cipher by changing the size of the shift.</p>
+
+<form name="form1" onsubmit="return false">
+Offset: <a href="javascript:decNum()">&lt;&lt;</a><input type="text" name="num" size="1" value="18" onchange="javascript: changeNum()"><a href="javascript:incNum()">&gt;&gt;</a>
+</form>
+
+<div class="split-left">
+<form name="form2">
+<div class="column-left" align="center">
+Plaintext: <br> 
+<input type="text" name="textfield3" size="1" value=" a"> <br>
+<input type="text" name="textfield32" size="1" value=" b"> <br>
+<input type="text" name="textfield33" size="1" value=" c"> <br>
+<input type="text" name="textfield34" size="1" value=" d"> <br>
+<input type="text" name="textfield35" size="1" value=" e"> <br>
+<input type="text" name="textfield36" size="1" value=" f"> <br>
+<input type="text" name="textfield37" size="1" value=" g"> <br>
+<input type="text" name="textfield38" size="1" value=" h"> <br>
+<input type="text" name="textfield39" size="1" value=" i"> <br>
+<input type="text" name="textfield310" size="1" value=" j"> <br>
+<input type="text" name="textfield311" size="1" value=" k"> <br>
+<input type="text" name="textfield312" size="1" value=" l"> <br>
+<input type="text" name="textfield313" size="1" value=" m"> <br>
+<input type="text" name="textfield314" size="1" value=" n"> <br>
+<input type="text" name="textfield315" size="1" value=" o"> <br>
+<input type="text" name="textfield316" size="1" value=" p"> <br>
+<input type="text" name="textfield317" size="1" value=" q"> <br>
+<input type="text" name="textfield318" size="1" value=" r"> <br>
+<input type="text" name="textfield319" size="1" value=" s"> <br>
+<input type="text" name="textfield320" size="1" value=" t"> <br>
+<input type="text" name="textfield321" size="1" value=" u"> <br>
+<input type="text" name="textfield322" size="1" value=" v"> <br>
+<input type="text" name="textfield323" size="1" value=" w"> <br>
+<input type="text" name="textfield324" size="1" value=" x"> <br>
+<input type="text" name="textfield325" size="1" value=" y"> <br>
+<input type="text" name="textfield3252" size="1" value=" z"> 
+</div>
+<div class="column-right" align="center">
+Ciphertext: <br>
+<input type="text" name="let1" size="1" maxlength="2" value="S" readonly=""> <br>
+<input type="text" name="let2" size="1" maxlength="2" value="T" readonly=""> <br>
+<input type="text" name="let3" size="1" maxlength="2" value="U" readonly=""> <br>
+<input type="text" name="let4" size="1" maxlength="2" value="V" readonly=""> <br>
+<input type="text" name="let5" size="1" maxlength="2" value="W" readonly=""> <br>
+<input type="text" name="let6" size="1" maxlength="2" value="X" readonly=""> <br>
+<input type="text" name="let7" size="1" maxlength="2" value="Y" readonly=""> <br>
+<input type="text" name="let8" size="1" maxlength="2" value="Z" readonly=""> <br>
+<input type="text" name="let9" size="1" maxlength="2" value="A" readonly=""> <br>
+<input type="text" name="let10" size="1" maxlength="2" value="B" readonly=""> <br>
+<input type="text" name="let11" size="1" maxlength="2" value="C" readonly=""> <br>
+<input type="text" name="let12" size="1" maxlength="2" value="D" readonly=""> <br>
+<input type="text" name="let13" size="1" maxlength="2" value="E" readonly=""> <br>
+<input type="text" name="let14" size="1" maxlength="2" value="F" readonly=""> <br>
+<input type="text" name="let15" size="1" maxlength="2" value="G" readonly=""> <br>
+<input type="text" name="let16" size="1" maxlength="2" value="H" readonly=""> <br>
+<input type="text" name="let17" size="1" maxlength="2" value="I" readonly=""> <br>
+<input type="text" name="let18" size="1" maxlength="2" value="J" readonly=""> <br>
+<input type="text" name="let19" size="1" maxlength="2" value="K" readonly=""> <br>
+<input type="text" name="let20" size="1" maxlength="2" value="L" readonly=""> <br>
+<input type="text" name="let21" size="1" maxlength="2" value="M" readonly=""> <br>
+<input type="text" name="let22" size="1" maxlength="2" value="N" readonly=""> <br>
+<input type="text" name="let23" size="1" maxlength="2" value="O" readonly=""> <br>
+<input type="text" name="let24" size="1" maxlength="2" value="P" readonly=""> <br>
+<input type="text" name="let25" size="1" maxlength="2" value="Q" readonly=""> <br>
+<input type="text" name="let26" size="1" maxlength="2" value="R" readonly=""> <br>
+</div>
+</form>
+</div>
+<div class="split-right">
+<form name="form3">
+Keep spaces between words: <input type="radio" name="spc" value="1" checked="" onclick="check1(this.form)"> <br>
+Slow Encrypt: <input type="radio" name="typ" value="l"> <br>
+Fast Encrypt: <input type="radio" name="typ" value="f" checked=""> <br><br>
+Plaintext:<br>  <textarea name="actual" cols="28" rows="4"></textarea> <br>
+Ciphertext:<br> <textarea name="encpt" cols="28" rows="4"></textarea> <input type="hidden" name="cipherName" value="Ceasar Cipher"><br>
+</form>
+<a href="javascript:callEncrypt()">Encipher Plaintext</a><br>
+<a href="javascript:decrypt()">Decipher Plaintext</a><br>
+<a href="javascript:ClearBox()">Clear Boxes</a><br>
+<a href="javascript:printCipher()">Print Ciphertext</a><br>
+<a href="javascript:setText()">Caesar Shift Puzzle</a><br>
+</div>
+
+
+
+</div>
+
+
+
+</body></html>

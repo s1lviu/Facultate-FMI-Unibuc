@@ -1,0 +1,116 @@
+body {
+ color:white;
+ background: black;
+ font-family: Arial;
+}
+
+.topbanner {
+ width: 100%;
+ text-align: center;
+ background: black;
+ font-family: Times New Roman;
+}
+
+.topbanner h1 {
+ font-size:250%;
+ margin: 0;
+ color: #CCCCCC;
+}
+
+#blackchamber {
+ background: url('gradient.jpg');
+ background-color: white;
+ text-transform: uppercase;
+ color: black;
+ font-weight: bold;
+}
+
+#active {
+ color:red;
+}
+
+#important {
+ color:yellow;
+ font-weight:bold;
+}
+
+.leftmenu {
+ padding-top: 25px;
+ width:18%;
+ float:left;
+}
+
+.leftmenu ul {
+ margin:0;
+ padding:0;
+}
+
+.leftmenu li {
+ list-style:none;
+ font-style: italic;
+ border-bottom: solid white 1px;
+}
+
+.leftmenu li ul li {
+ padding-left:10px;
+ border-bottom:none;
+}
+
+.leftmenu ul li ul li ul li {
+ color:#CCCCCC;
+}
+
+.leftmenu a, a:visited, a:active {
+ text-decoration:none;
+ color: white;
+}
+
+.leftmenu a:hover {
+ color: gray;
+}
+
+.mainbody {
+ width:75%;
+ float:right;
+ color: #CCCCCC;
+ padding: 25px;
+ text-align:justify;
+}
+
+.split-left {
+ width: 25%;
+ float:left;
+}
+
+.split-right {
+ width: 75%;
+ float:right;
+}
+
+.column-left {
+ width: 50%;
+ float:left;
+}
+
+.column-right {
+ width: 50%;
+ float:right;
+ 
+}
+
+.column-left-zero {
+ width: 33%;
+ float:left;
+}
+
+.column-right-one {
+ width: 33%;
+ float:right;
+ 
+}
+
+.column-right-two {
+ width: 33%;
+ float:right;
+ 
+}

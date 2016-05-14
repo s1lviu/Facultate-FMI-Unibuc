@@ -1,0 +1,582 @@
+
+<!-- saved from url=(0071)http://www.simonsingh.net/The_Black_Chamber/vigenere_cracking_tool.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>The Black Chamber - Vigenère Cracking Tool</title>
+<link rel="stylesheet" href="./The Black Chamber - Vigenère Cracking Tool_files/main.css" type="text/css">	
+<script language="javascript">
+var my_cipher_text="";
+//////////////****************patter matching**********************///////////////////////
+var pattern=/[0-9\`\~\@\#\$\%\^\&\*\\!(\)\-\_\+\=\;\:\?\>\<\,\.\]\[\{\}\|]/
+
+//////////////////***************pattern matching*********************///////////////////////
+
+function ciphertxt()
+{
+document.form1.cipher.value="RIKVBIYBITHUSEVAZMMLTKASRNHPNPZICSWDSVMBIYFQEZUBZPBRGYNTBURMBECZQKBMBPAWIXSOFNUZECNRAZFPHIYBQEOCTTIOXKUNOHMRGCNDDXZWIRDVDRZYAYYICPUYDHCKXQIECIEWUICJNNACSAZZZGACZHMRGXFTILFNNTSDAFGYWLNICFISEAMRMORPGMJLUSTAAKBFLTIBYXGAVDVXPCTSVVRLJENOWWFINZOWEHOSRMQDGYSDOPVXXGPJNRVILZNAREDUYBTVLIDLMSXKYEYVAKAYBPVTDHMTMGITDZRTIOVWQIECEYBNEDPZWKUNDOZRBAHEGQBXURFGMUECNPAIIYURLRIPTFOYBISEOEDZINAISPBTZMNECRIJUFUCMMUUSANMMVICNRHQJMNHPNCEPUSQDMIVYTSZTRGXSPZUVWNORGQJMYNLILUKCPHDBYLNELPHVKYAYYBYXLERMMPBMHHCQKBMHDKMTDMSSJEVWOPNGCJMYRPYQELCDPOPVPBIEZALKZWTOPRYFARATPBHGLWWMXNHPHXVKBAANAVMNLPHMEMMSZHMTXHTFMQVLILOVVULNIWGVFUCGRZZKAUNADVYXUDDJVKAYUYOWLVBEOZFGTHHSPJNKAYICWITDARZPVU";
+}
+
+var let_posi=""//for the 244 line
+var posnum=1;//same as above
+var counter_scroll=0;//this variable is used in line 158 to dittermine the position of variable
+var my_final_words=new Array();
+var my_final_diff=new Array();
+var my_search_word=new Array();
+var my_wrd_arr=new Array();
+var my_dif_arr=new Array();
+var index_arr=new Array();
+var str="";
+var myindex;
+function waitlayer(k)
+{
+if(k==1)
+document.all["waitlayer"].innerHTML="<font color='pink' face='arial' size='1'>After clicking, wait for a while</font>"
+else if(k==0)
+document.all["waitlayer"].innerHTML="";
+}
+
+
+function len_rep()
+{
+my_cipher_text=document.form1.cipher.value.toUpperCase();
+
+if(my_cipher_text.search(" ")!=-1)
+	{
+	my_cipher_text=my_cipher_text.split(" ");
+	my_cipher_text=my_cipher_text.join("");
+	document.form1.cipher.value=my_cipher_text;
+	}
+/////////////////////////////////////////////////
+if(pattern.test(my_cipher_text))
+	{
+	alert("Numbers and special characters cannot be encrypted.\n Please remove these from the text.");
+	document.form1.cipher.focus();		//return false;
+	}
+else {		//return true;}	
+
+//////////////////////////////////////////////////
+var arr_index=0;
+var word_length=3;
+for(var i=0;i<=my_cipher_text.length-word_length;i++)
+	{
+	my_search_word[arr_index]=my_cipher_text.substr(i,word_length);
+		if(i==my_cipher_text.length-word_length)
+			{
+			i=0;word_length++;
+			}
+	arr_index++;
+	if(word_length>5){break;}
+	}
+for(var j=0;j<my_search_word.length;j++)
+{
+index_arr[j]=new Array();
+str=my_search_word[j];
+myindex=my_cipher_text.indexOf(str);
+
+counter=0;
+
+while(myindex!=-1)
+	{	
+	index_arr[j][counter]=myindex;
+	myindex=myindex+1;	 
+	myindex=my_cipher_text.indexOf(str,myindex);	
+	counter++;
+	}
+	
+}
+for(var i=0;i<index_arr.length;i++)
+	{
+	 for(var j=0;j<index_arr[i].length-1;j++)
+	 	{		
+		index_arr[index_arr[i][j+1]]="A";
+		}				
+	}
+for(var k=0;k<index_arr.length;k++)
+	{
+	if(index_arr[k].length==1)
+		{
+		index_arr[k][0]="A";
+		}	
+	}
+var wrd=0;
+for(var i=0;i<index_arr.length;i++)
+	{
+	if(index_arr[i]!="A")
+		{
+		my_dif_arr[wrd]=new Array();
+		my_wrd_arr[wrd]=my_search_word[i];
+			for(var z=0;z<index_arr[i].length-1;z++)
+				{
+				ind1=index_arr[i][z];
+				ind2=index_arr[i][z+1];
+				diff=ind2-ind1;
+				my_dif_arr[wrd][z]=diff;
+				}
+		wrd++;
+		}
+	}
+for(var i=0;i<my_wrd_arr.length;i++)
+{
+   for(var j=0;j<my_wrd_arr.length;j++)
+	{
+	if(my_wrd_arr[i]==my_wrd_arr[j])
+		{
+		if(i!=j)
+		my_wrd_arr[j]="A"
+		}
+	}
+}
+var j=0;
+for(var i=0;i<my_wrd_arr.length;i++)
+{
+if(my_wrd_arr[i]!="A")
+	{
+	my_final_words[j]=my_wrd_arr[i];
+	my_final_diff[j]=my_dif_arr[i];
+	j++;	
+	}
+}
+var layertext="";
+layertext='<table width="0%" height="0%" border="0"><tr><td width="0%">';//ist table
+layertext=layertext+'<TABLE  width="0%" BORDER="0"  CELLSPACING="0" CELLPADDING="0" ALIGN="LEFT" >';
+layertext=layertext+'<tr><td width="0%" colspan="3"><font color="#99999a" face="arial" size="2"><b>Vigenere Repeat Distance</b></font></td><td width="0%" colspan="19"><font color="#99999a" face="arial" size="2">Possible length of key &nbsp;(or factors)</font></td></tr>';
+layertext=layertext+'<TR><TD width="0%"><font color="#cccccc" face="Arial" size="2">Repeated Sequence</font></TD><TD width="2%"><font face="arial" color="#cccccc" size="2">&nbsp;Spacing</font></TD><TD width="0%">&nbsp; </TD>';
+for(var i=2;i<21;i++)
+{
+if(i<10)
+layertext=layertext+'<td width="0%"><INPUT TYPE="button" NAME="b2" size="3" VALUE="'+0+i+'" onClick="highest('+i+')"></TD>';
+else
+layertext=layertext+'<td width="0%"><INPUT TYPE="button" NAME="b2" size="3" VALUE="'+i+'" onClick="highest('+i+')"></TD>';
+}
+layertext=layertext+'</tr>';//end of first line of 2nd table
+
+for(var j=0;j<my_final_words.length;j++)
+	{	
+	for(var k=0;k<my_final_diff[j].length;k++)
+		{
+			layertext=layertext+"<tr>";counter_scroll++;//this is for scroller position
+			layertext=layertext+"<td width='0%' bgcolor='#cccccc'><font color='#000000' face='arial' size='2'>"+'&nbsp;'+my_final_words[j]+"</font></td>";
+			layertext=layertext+"<td width='0%' bgcolor='#999999'><center><font color='#000000' face='arial' size='2'>"+my_final_diff[j][k]+"</font></center></td>";
+			layertext=layertext+"<td width='0%'>&nbsp;</td>";
+			
+			get_factor(my_final_diff[j][k]);
+			for(var t=2;t<21;t++)
+			{	
+			layertext=layertext+"<td width='0%'><div align='center'><font color='#cccccc' face='arial'>";
+				for(var l=0;l<my_factor.length;l++)
+					{
+					
+					if(my_factor[l]==t)
+						{
+						layertext=layertext+"x";//my_factor[l]
+						}
+					//else
+						//{
+						//layertext=layertext+"&nbsp;";
+						//}
+					}
+			layertext=layertext+"</font></div></td>";
+			}
+		layertext=layertext+"</tr>";
+		}
+	
+
+	}
+	
+layertext=layertext+"</table></font>";
+layertext=layertext+'</td></tr></table>';//end of ist table
+
+layertext=layertext+"<p align='justify'><font color='#cccccc' size='2' face='arial'>Shown above are the repetitions in the ciphertext, and the spacing between them. The factors of the spacing are indicated by crosses. If one factor is common to many of the spacing, then this is probably the length of the keyword.</font></p><p align='justify'><font color='#cccccc' size='2' face='arial'>Click the number corresponding to the most common spacing factor to identify the length of the keyword. Having established the length of the keyword, you can move to the next stage of cracking the ciphertext.</font></p>";
+//////////
+//////////
+
+document.all["repeatLayer"].innerHTML=layertext	
+/////
+}////////end first if
+////////////////////////
+}//end of function
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var my_factor="";
+function get_factor(num)
+{
+my_factor=null;
+my_factor=new Array();
+count=0;
+
+if(num>20){c_num=num}
+else{c_num=20}
+
+for(var i=2;i<c_num;i++)
+	{
+	if(num%i==0)
+		{
+		my_factor[count]=i;count++;
+		}
+	
+	}
+	
+
+}
+//end of function
+
+var our_key_length=""//it is used in the plaintext array
+var butt_text="";
+function highest(nums)
+{	
+	our_key_length=nums;
+	//////////////////////
+	my_chararray(nums);///this function create the hgt array by running only one time
+	
+	
+	//////////////////
+	butt_text="<p align='justify'><font color='#cccccc' size='2' face='arial'>It seems probable that the keyword is "		+nums+" letters long. For the time being let us call the keyword ";
+	for(var i=0;i<nums;i++)
+	{
+		if(i<3){
+		posnum=posnum+nums;
+		if(posnum%10==2){let_posi=let_posi+posnum+"<sup>nd</sup>&nbsp;";}
+		else if(posnum%10==3){let_posi=let_posi+posnum+"<sup>rd</sup>&nbsp;";}
+		else{let_posi=let_posi+posnum+"<sup>th</sup>&nbsp;";}
+		}
+	
+	if(i==0)
+	{butt_text=butt_text+"L"+(i+1);}
+	else
+	{butt_text=butt_text+"-"+"L"+(i+1);}
+	//define letter position
+	}
+	butt_text=butt_text+". The letter L1 defines one row of the Vigen&egrave;re square, and effectively provides a monoalphabetic substitution cipher alphabet for the first letter of the plaintext, and also the "+let_posi+" letters, etc. So if we take the corresponding letters in the ciphertext, we know they have been encrypted using the same row of the Vigen&egrave;re square, and we can work out which row by using frequency analysis, because each row of the square is equivalent to one monoalphabetic cipher. This polyalphabetic cipher consists of cycling between &nbsp;"+nums+"&nbsp;monoalphabetic ciphers.</font></p><p align='justify'><font face='arial' size='2' color='#cccccc'>Click each of the letters of the keyword to perform a frequency analysis of the portion of the ciphertext corresponding to that letter.</font></p>";
+	
+	let_posi="";//clearing for next click
+	posnum=1;//same as above
+	
+	butt_text=butt_text+"<table align='center' border='0'><tr><td>&nbsp;</td><td>&nbsp;</td>";
+	
+	for(var i=0;i<nums;i++)
+		{
+		butt_text=butt_text+"<td><input type='button' size='2' name=L"+i+" value=L"+(i+1)+"  onClick='graph_compare("+i+")'></td>";		
+		
+		}
+	butt_text=butt_text+"</tr></table>";
+	
+	
+	document.all['buttonLayer'].innerHTML=butt_text;
+	
+}//end of functiion highest
+////////////////////////////////////////////////////////////////////////////////////////////
+var which_butt_clicked="";
+function graph_compare(char_pos)
+{
+which_butt_clicked=char_pos
+mywrk(13);
+///for text not related to function. it is written here to write when it is required
+document.all['vis'].innerHTML='<FONT FACE="Arial, Helvetica, sans-serif" SIZE="2" COLOR="#CCCCCC">Slide the scroll bar along until the frequency chart for this portion of the ciphertext shows a good match with the average frequencies in normal English.Then click on the next letter of the keyword to analyse another portion of text.</FONT>';
+///same as above
+document.images['engim'].style.visibility="visible";
+////////
+
+document.all["Layer5"].style.top=(counter_scroll*19)+1050;
+document.all["Layer4"].style.top=(counter_scroll*19)+1050;
+document.all["Layer1"].style.top=(counter_scroll*19)+1050;//1202
+document.all["Layer5"].style.visibility="visible";
+document.all["Layer4"].style.visibility="visible";
+document.all["Layer1"].style.visibility="visible";
+
+////////positioning the solution textfield////////////////
+document.all["solu"].style.top=(counter_scroll*19)+1000;
+document.all["solu"].style.visibility="visible";
+
+
+/////////////////////
+document.knobImg2.style.pixelLeft=261///this is related to the function
+
+
+
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+var letter="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var hgt=new Array();
+var charset="";
+var acharin=""//only use in for loop
+var array_ofcharset=new Array();
+function my_chararray(key_length)////dhore nissi je eta ekbar run korbe
+{
+var my_cipher_text=document.form1.cipher.value
+
+for(var i=0;i<key_length;i++)
+	{
+	hgt[i]=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+	for(var j=i;j<my_cipher_text.length;j=j+key_length)
+		{
+		if(my_cipher_text.charAt(j)!=-1)
+		charset=charset+my_cipher_text.charAt(j);
+		acharin=my_cipher_text.charAt(j);
+		if(acharin!=-1)
+			{
+			hgt[i][letter.indexOf(acharin)]=hgt[i][letter.indexOf(acharin)]+1;
+			}
+		
+		}
+	array_ofcharset[i]=charset;charset="";
+	}
+	var k=0;
+	
+//making % of the chars according to total chars that is length of array_ofcharset array
+ 
+
+for(var k=0;i<key_length;k++)
+	{
+	for(var j=0;j<26;j++)
+		{
+		hgt[k][j]=Math.round(hgt[k][j]/array_ofcharset[k].length)*100		
+		}
+	
+	}
+	
+
+}//end of fuhnction for hgt[]
+
+</script>
+<style>.drag {CURSOR: hand; POSITION: absolute}</style> 
+<script language="javascript">
+document.onmousedown=dragLayer
+document.onmouseup=new Function("dragMe=false")
+
+var dragMe=false, kObj, yPos,direction
+
+function dragLayer() 
+{
+if (event.srcElement.className=="drag")
+		{
+		dragMe=true;
+		kObj=event.srcElement;
+		temp2=kObj.style.pixelLeft;
+		yPos=event.clientX; 
+		document.onmousemove=moveLayer;/////////////////***movelayer()***///////////////////////		
+		}
+}
+
+function moveLayer() 
+{
+if (event.button==1 && dragMe)
+	{
+	oldX = event.srcElement.style.pixelLeft;
+	kObj.style.pixelLeft=temp2+event.clientX-yPos; 		
+	if (kObj.style.pixelLeft > oldX) direction="lft"; else direction="rht";
+	if (kObj.style.pixelLeft < 2 && direction=="rht"){kObj.style.pixelLeft=2; direction="lft";}
+	if (kObj.style.pixelLeft > 522 && direction=="lft"){kObj.style.pixelLeft=522; direction="rht";}
+	x=kObj.style.pixelLeft;
+	//x=x-2;//making x as 0 - 520
+	
+i=Math.ceil(x/20)
+//document.form1.textfield.value=x+"\n"+i //for checking perposes
+
+	mywrk(i-1); 
+	return false; 
+	}
+}
+
+function moveByButton(lrb)
+{
+
+var chk=parseInt(document.knobImg2.style.pixelLeft)
+if(chk%20!=0)
+	{
+	chk=chk-chk%20+1;
+	document.knobImg2.style.pixelLeft=chk
+	}
+
+	chk=chk+lrb
+	
+	if(chk>=522){chk=521}
+	else if(chk<=2){chk=2}
+	document.knobImg2.style.pixelLeft=chk
+
+	xx=parseInt(document.knobImg2.style.pixelLeft)
+	ii=Math.ceil(xx/20)
+	//document.form1.textfield.value=xx+"\n"+ii //for checking perposes
+	
+
+mywrk(ii-1)
+}
+
+function mywrk(arg) 
+{
+var x;
+var l=arg-13;
+x='<TABLE WIDTH="570" ALIGN="right" BORDER="0" CELLSPACING="0" CELLPADDING="0" HEIGHT="105"><TR valign="bottom"><TD>';
+x=x+'<table width="100%" border="0"><tr valign="bottom">'
+for(i=0;i<26;i++)
+	{
+	if(l>25){l=0};if(l<0){l=26+l}
+	x=x+'<td><table border="0" height="0" bordercolor="#000000" ><tr>'
+	x=x+'<td bgcolor="red" height='+hgt[which_butt_clicked][l]*4+'></td>'+'</tr>'
+	x=x+'<tr><td height="0"><font face="courier" size="1" color="#cccccc"><b>'+letter.charAt(l)+'</b></font></td></tr></table></td>';
+	l++;
+	}
+
+x=x+'</TD></TR></TABLE>';
+
+document.all['graphLayer'].innerHTML=x;
+
+//document.all['scrollgraph'].innerHTML='';
+
+if(l>25){l=26-l}
+//////////////////
+breakkey(l);		
+}//end of function
+///////////////////////////////////////////////////////////////////////////////////////
+var my_plaintext=new Array();
+function breakkey(arg_ofmywrk)//this function is breaking the keyword
+{
+var key_value=arg_ofmywrk;//collecting the key chars index
+var charsettext="";
+var ciphar_value="";
+var plain_value="";
+//var key_value="";
+
+for(var j=0;j<array_ofcharset.length;j++)
+	{
+	
+	my_plaintext[j]="";
+	charsettext=array_ofcharset[j];
+	for(k=0;k<charsettext.length;k++)
+		{
+		cipher_value=letter.indexOf(charsettext.charAt(k))
+		plain_value=cipher_value-key_value;
+		if(plain_value<0)
+		{
+		plain_value=26+plain_value
+		}
+		my_plaintext[j]=my_plaintext[j]+letter.charAt(plain_value);
+		
+		}	
+	}
+deciphered_text_onlayer(which_butt_clicked) ;
+
+var doc=eval("document.form1.L"+which_butt_clicked);
+
+doc.value=letter.charAt(key_value);
+
+document.form1.textfield.value=deciphered
+}//func
+
+
+var flag=0;
+var deciphered;
+var decipher_array=new Array()
+function deciphered_text_onlayer(buttnum)
+{
+var counter=0;
+var x=my_plaintext[buttnum];
+if(flag==0)
+{
+for(var i=0;i<my_cipher_text.length;i++)
+	{
+	decipher_array[i]="*"
+	}
+flag=1;
+}
+for(var i=0;i<my_cipher_text.length;i++)
+	{
+	if(i%our_key_length==buttnum)
+		{
+		 decipher_array[i]=x.charAt(counter);
+		 counter++;
+		}	
+	}
+deciphered=decipher_array.join("");
+}//function
+
+function clearbody()
+{
+
+document.form1.textfield.value="";
+
+}
+
+</script>
+</head>
+
+<body>
+
+<div class="topbanner">
+<h1>The <span id="blackchamber">Black</span> Chamber</h1>
+</div>
+<div class="leftmenu">
+<ul>
+<li><a href="http://www.simonsingh.net/The_Black_Chamber/index.html">Home</a></li>
+<li><a href="http://www.simonsingh.net/The_Black_Chamber/chamberguide.html">Chamber Guide</a>
+ <ul>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/transposition.html">Transposition</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/railfencecipher.html">Rail Fence Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/latinsquare.html">Latin Square</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/substitution.html">Substitution</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/caesar.html">Caesar Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/kamasutra.html">Kama-sutra Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/pigpen.html">Pigpen Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/monoalphabetic.html">Mono-alphabetic Cipher</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/codes_ciphers_keys.html">Codes, Ciphers and Keys</a></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/crackingsubstitution.html">Cracking the Substitution Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/letterfrequencies.html">Letter Frequencies</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/hintsandtips.html">Hints and Tips</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/substitutioncrackingtool.html">Substitution Cracking Tool</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/maryqueenofscots.html">Mary Queen of Scots</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/moreadvancedciphers.html">More Advanced Ciphers</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/digraphcipher.html">Digraph Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/homophonic_cipher.html">Homophonic Cipher</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/playfair_cipher.html">Playfair Cipher</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_cipher.html">Vigenère Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/swapping_cipher_alphabets.html">Swapping Cipher Alphabets</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/v_square.html">Vigenère Square</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_square_tool.html">Vigenère Square Tool</a></li>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_strength.html">Why is Vigenère so strong?</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/vigenere_cracking.html">Cracking the Vigenère Cipher</a><ul>
+   <li><a href="http://www.simonsingh.net/The_Black_Chamber/crackingprinciple.html">Cracking Principle</a></li>
+   <li><a href="./The Black Chamber - Vigenère Cracking Tool_files/The Black Chamber - Vigenère Cracking Tool.htm" id="active">Vigenère Cracking Tool</a></li></ul></li>
+  <li><a href="http://www.simonsingh.net/The_Black_Chamber/1900_2000.html">1900 - 2000</a></li>
+ </ul>
+</li>
+<li><a href="http://simonsingh.net/contact/" target="_blank">Contact Simon Singh</a></li>
+<li><a href="http://simonsingh.net/cryptography/">Crypto Corner</a></li>
+<li><a href="http://simonsingh.net/cryptography/crypto-cd-rom/">CD-ROM</a></li>
+<li><a href="http://simonsingh.net/">Return to simonsingh.net</a></li>
+</ul>
+</div>
+<div class="mainbody">
+<form name="form1"> 
+<p align="justify">You 
+can paste your own ciphertext into the box below or you can try to crack the the 
+ciphertext that is already there. The first step in cracking the Vigenère 
+cipher is to look for sequences of letters that appear more than once in the ciphertext. 
+The most likely reason for such repetitions is that the same sequence of letters 
+in the plaintext has been enciphered using the same part of the key. Click the 
+button labelled 'Find Repeated Sequences' to perform this analysis.The repeated 
+sequences may take a moment or two to appear.</p>
+
+<div align="CENTER"><textarea name="cipher" cols="35" rows="7"></textarea></div>
+
+
+
+
+<div align="CENTER"><a href="javascript:len_rep()">Find Repeated Sequences</a></div>
+
+
+
+<table width="774" border="0" cellspacing="0" cellpadding="0"> 
+<tbody><tr><td width="202">&nbsp;</td><td width="572"><div id="repeatLayer"></div></td></tr> 
+<tr><td width="202">&nbsp;</td><td width="572">&nbsp;</td></tr> <tr><td width="202">&nbsp;</td><td width="572"><div id="buttonLayer"></div></td></tr> 
+<tr><td width="202">&nbsp;</td><td width="572">&nbsp;</td></tr> <tr><td width="202">&nbsp;</td><td width="572"><div id="vis"></div></td></tr><tr><td width="202">&nbsp;</td><td width="572">&nbsp;</td></tr><tr><td colspan="2"><div align="right"><img id="engim" src="./The Black Chamber - Vigenère Cracking Tool_files/standardgraph.gif" width="679" height="76" style="visibility:hidden"></div></td></tr><tr><td width="202">&nbsp;</td><td width="572">&nbsp;</td></tr><tr><td rowspan="2">&nbsp;</td><td width="572"><div id="graphLayer" align="left"></div></td></tr><tr><td width="572">&nbsp;</td></tr>
+</tbody></table>
+
+<div id="Layer5" style="position:absolute;visibility:hidden; left:512px; top:1900px; width:50px; height:36px; z-index:6"><div align="right"><a href="javascript:moveByButton(-20)"><img src="./The Black Chamber - Vigenère Cracking Tool_files/aeroleft.gif" width="19" height="20" border="0"></a></div></div><div id="Layer1" style="position:absolute;visibility:hidden; left:562px; top:1900px; width:550px; height:20px; z-index:4; background-color: #666666; layer-background-color: #666666; border: 1px none #000000;"><hr width="97%" align="left" color="#000000"><img src="./The Black Chamber - Vigenère Cracking Tool_files/knob.jpe" name="knobImg2" width="100" height="60" class="drag" id="knobImg2" style="HEIGHT: 17px; LEFT: 260px; TOP: 0px; WIDTH: 20px; Z-INDEX: 5"></div><div id="Layer4" style="position:absolute;visibility:hidden; left:1102px; top:1900px; width:60px; height:36px; z-index:5"><div align="LEFT"><a href="javascript:moveByButton(20)"><img src="./The Black Chamber - Vigenère Cracking Tool_files/aeroright.gif" width="19" height="20" border="0"></a></div></div>
+<div id="solu" style=" z-index:7; visibility: hidden;"><textarea name="textfield" cols="20" rows="10"></textarea></div>
+</form>
+</div>
+<script language="javascript">ciphertxt();clearbody();</script>
+
+
+</body></html>
